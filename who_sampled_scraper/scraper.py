@@ -1,15 +1,15 @@
 import re
 import json
 import requests
+import traceback
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 
 #region Classes
 class SampleData:
-    def __init__(self, samples, sampled_by) -> None:
+    def __init__(self, samples, sampled_by, isError=False) -> None:
         self.samples = samples
         self.sampled_by = sampled_by
-
 
 class Song:
     def __init__(self, track, artist, year) -> None:
@@ -25,17 +25,14 @@ class WhoSampledScraper:
     }
 
 
-    def __init__(self, artist, song) -> None:
-        url = self.build_url(artist, song)
+    def __init__(self, artist, track) -> None:
+        self.URL = self.build_url(artist, track)
+        
+    def build_url(self, artist, track) -> str:
+        url = '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), track.replace(' ', '-'))
+        url = quote(url, safe='/:?=&()')
+        
         print(url)
-        page = requests.get(url, headers=self.HEADERS)
-
-        self.soup = BeautifulSoup(page.content, 'html.parser')
-
-
-    def build_url(self, artist, song) -> str:
-        url = '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), song.replace(' ', '-'))
-        url = quote(url, safe='/:?=&')
         return url
 
 
@@ -47,7 +44,7 @@ class WhoSampledScraper:
         return SampleData(self.get_samples(), self.get_samples(sampled_by=True))
 
 
-    def get_samples(self, sampled_by=False) -> list: 
+    def get_samples(self, sampled_by=False, use_suffix=True) -> list: 
         '''
         Defaultly gets songs which requested song samples
 
@@ -56,22 +53,33 @@ class WhoSampledScraper:
         Returns:
             songs: List of Song objects
         '''
-
+        url_suffix = ('', ('samples/', 'sampled/')[sampled_by])[use_suffix]
         section_str = ('contains samples', 'was sampled')[sampled_by]
-
-        section = None
-        for t in self.soup.find_all('span', class_='section-header-title'):
-            if section_str in t.contents[0].lower():
-                section = t.parent.parent
-                continue
-
-        if section is None:
-            return []
-
-        samples = self.get_songs_from_section(section)
         
-        return samples
+        try:
+            page = requests.get('{}{}'.format(self.URL, url_suffix), headers=self.HEADERS)
 
+            if page.status_code == 404 and use_suffix == True:
+                return self.get_samples(sampled_by=sampled_by, use_suffix=False)
+
+            soup = BeautifulSoup(page.content, 'html.parser')
+
+            section = None
+            for t in soup.find_all('span', class_='section-header-title'):
+                if section_str in t.contents[0].lower():
+                    section = t.parent.parent
+                    continue
+
+            if section is None:
+                return []
+
+            samples = self.get_songs_from_section(section)
+            
+            return samples
+        except:
+            traceback.print_exc()
+            return []
+        
 
     def get_songs_from_section(self, section) -> list:
         '''
@@ -84,15 +92,20 @@ class WhoSampledScraper:
         '''
         
         songs = []
+        errors = []
         for song in section.find_all('div', class_='sampleEntry'):
-            details = song.find_all('div', class_='trackDetails')[0]
+            try:
+                details = song.find_all('div', class_='trackDetails')[0]
 
-            # re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[2])[0]
-            songs.append(Song(
-                track=details.find_all('a', class_='trackName')[0].contents[0],
-                artist=details.find_all('span', class_='trackArtist')[0].find_all('a')[0].contents[0],
-                year='0000'
-            ))
+                songs.append(Song(
+                    track=details.find_all('a', class_='trackName')[0].contents[0],
+                    artist=details.find_all('span', class_='trackArtist')[0].find_all('a')[0].contents[0],
+                    year=re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[-1])[0]
+                ))
+            except:
+                traceback.print_exc()
+                errors.append(song)
+                break
         
         return songs
 #endregion
@@ -121,7 +134,9 @@ def get_data(artist, track):
     return json_result
 #endregion
 
-# get_data('Rihanna', 'Pon de Replay')
-# get_data("Macklemore", "Can't Hold Us")
-get_data("N.W.A", "Straight Outta Compton")
-# get_data('Modjo', 'Lady (Hear Me Tonight)')
+
+if __name__=="__main__":
+    get_data('Rihanna', 'Pon de Replay')
+    # get_data("Macklemore", "Can't Hold Us")
+    # get_data("N.W.A", "Straight Outta Compton")
+    # get_data('Modjo', 'Lady (Hear Me Tonight)')
