@@ -36,7 +36,7 @@ class WhoSampledScraper:
         return url
 
 
-    def get_all_samples(self) -> list:
+    def get_all_samples(self) -> SampleData:
         '''
         Returns:
             (samples, sampled by): returns tuple of songs which the requested song samples along with songs which sample it

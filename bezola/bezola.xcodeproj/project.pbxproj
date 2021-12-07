@@ -344,7 +344,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
-				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed to fetch python file (May be removed)";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed for python script access";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -371,7 +371,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
-				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed to fetch python file (May be removed)";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed for python script access";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

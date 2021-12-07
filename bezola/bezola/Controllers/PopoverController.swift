@@ -11,7 +11,7 @@ import AppKit
 class PopoverController {
     private var eventMonitor: EventMonitor?
     
-    let statusItem = NSStatusBar.system.statusItem(withLength: 28.0)
+    let statusItem = NSStatusBar.system.statusItem(withLength: 34.0)
     let popover = NSPopover()
     
     init() {
@@ -21,7 +21,7 @@ class PopoverController {
     func set() {
         if let statusBarButton = statusItem.button {
             statusBarButton.image = #imageLiteral(resourceName: "StatusBarIcon")
-            statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
+            statusBarButton.image?.size = NSSize(width: 34.0, height: 18.0)
             statusBarButton.image?.isTemplate = true
             
             statusBarButton.action = #selector(togglePopover(sender:))
