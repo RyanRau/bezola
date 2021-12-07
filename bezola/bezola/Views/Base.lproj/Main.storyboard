@@ -688,15 +688,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="278"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udx-SV-QLX">
-                                <rect key="frame" x="18" y="79" width="171" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="No track playing" id="7kk-0d-Hse">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mtc-Qg-cb1">
                                 <rect key="frame" x="210" y="13" width="227" height="251"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -848,13 +839,22 @@
                                     </tabViewItem>
                                 </tabViewItems>
                             </tabView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGe-Jx-eTO">
-                                <rect key="frame" x="37" y="114" width="132" height="132"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-LN-y2J">
+                                <rect key="frame" x="20" y="130" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="zd8-cK-cx6"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="KIF-KC-IqS"/>
                             </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udx-SV-QLX">
+                                <rect key="frame" x="18" y="106" width="171" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="No track playing" id="7kk-0d-Hse">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obg-aQ-Hgw">
-                                <rect key="frame" x="18" y="55" width="171" height="16"/>
+                                <rect key="frame" x="18" y="82" width="171" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" title="No artist playing" id="4cm-6U-Obh">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -865,6 +865,7 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="albumArt" destination="Jnb-LN-y2J" id="RXH-4o-fiW"/>
                         <outlet property="artistTitle" destination="Obg-aQ-Hgw" id="LO2-Gw-4id"/>
                         <outlet property="sampleTableView" destination="fkm-Wi-dKG" id="pdI-Ku-NdO"/>
                         <outlet property="sampledByTableView" destination="ktv-8n-SRb" id="vSc-0x-2EF"/>

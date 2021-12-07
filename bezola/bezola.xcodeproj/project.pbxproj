@@ -19,6 +19,7 @@
 		80949273275F7F61000EE149 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949272275F7F61000EE149 /* EventMonitor.swift */; };
 		80949276275F84D4000EE149 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949275275F84D4000EE149 /* PopoverController.swift */; };
 		80949279275FB4C1000EE149 /* TableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949278275FB4C1000EE149 /* TableHandler.swift */; };
+		8094927B27601ED5000EE149 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094927A27601ED5000EE149 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		80949272275F7F61000EE149 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		80949275275F84D4000EE149 /* PopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		80949278275FB4C1000EE149 /* TableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHandler.swift; sourceTree = "<group>"; };
+		8094927A27601ED5000EE149 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				8094926C275F7213000EE149 /* WhoSampled.swift */,
 				80949272275F7F61000EE149 /* EventMonitor.swift */,
 				80949278275FB4C1000EE149 /* TableHandler.swift */,
+				8094927A27601ED5000EE149 /* Helpers.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				80949279275FB4C1000EE149 /* TableHandler.swift in Sources */,
 				80949255275EA0C1000EE149 /* MainViewController.swift in Sources */,
 				8094926F275F7270000EE149 /* SampleData.swift in Sources */,
+				8094927B27601ED5000EE149 /* Helpers.swift in Sources */,
 				8094926D275F7213000EE149 /* WhoSampled.swift in Sources */,
 				80949263275EA13C000EE149 /* Spotify.swift in Sources */,
 				80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */,

@@ -14,7 +14,8 @@ struct AppleScripts {
         tell application "Spotify"
             set currentArtist to artist of current track as string
             set currentTrack to name of current track as string
-            return currentTrack & "%" & currentArtist
+            set currentAlbumUrl to artwork url of current track as string
+            return currentTrack & "%" & currentArtist & "%" & currentAlbumUrl
         end tell
     """
     

@@ -11,6 +11,8 @@ class MainViewController: NSViewController {
     
     @IBOutlet weak var trackTitle: NSTextField!
     @IBOutlet weak var artistTitle: NSTextField!
+    @IBOutlet weak var albumArt: NSImageView!
+    
     @IBOutlet weak var sampleTableView: NSTableView!
     @IBOutlet weak var sampledByTableView: NSTableView!
     
@@ -36,16 +38,8 @@ class MainViewController: NSViewController {
     
     override func viewWillAppear() {
         self.current = getSpotifyData()
-        self.sampleData = getSampleData()
+        self.getAndSetSampleData()
 
-        self.sampleHandler.updateData(self.sampleData.samples)
-        self.sampledByHandler.updateData(self.sampleData.sampled_by)
-        
-//        self.sampleData = WhoSampled.getSampleData("I Wonder", "Kanye West")
-        
-        sampleTableView.reloadData()
-        sampledByTableView.reloadData()
-        
         setViewWithData()
     }
 
@@ -56,13 +50,38 @@ extension MainViewController {
         return Spotify.getCurrentlyPlaying()
     }
     
-    func getSampleData() -> SampleData {
-        return WhoSampled.getSampleData(current.track, current.artist)
+    func getAndSetSampleData() {
+        WhoSampled.getSampleData(self.current.track, self.current.artist) { sampleData in
+            self.sampleData = sampleData
+
+            self.sampleHandler.updateData(self.sampleData.samples)
+            self.sampledByHandler.updateData(self.sampleData.sampled_by)
+            
+            self.sampleTableView.reloadData()
+            self.sampledByTableView.reloadData()
+        }
     }
     
     func setViewWithData() {
         trackTitle.stringValue = current.track
         artistTitle.stringValue = current.artist
+        
+        fetchImage { error, image in
+            guard let image = image else { return }
+            self.albumArt.image = image
+        }
+    }
+    
+    func fetchImage(completion: @escaping (Bool, NSImage?) -> ()) {
+        Helpers.get(url: current.albumURL)  { data, response, error in
+            DispatchQueue.main.async() {
+                guard let data = data, error == nil else {
+                    completion(true, nil)
+                    return
+                }
+                completion(false, NSImage(data: data))
+            }
+        }
     }
     
 }
