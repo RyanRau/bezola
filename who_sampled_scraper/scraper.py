@@ -2,6 +2,7 @@ import re
 import json
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 #region Classes
 class SampleData:
@@ -29,13 +30,13 @@ class WhoSampledScraper:
         print(url)
         page = requests.get(url, headers=self.HEADERS)
 
-        # Add checking 
-
         self.soup = BeautifulSoup(page.content, 'html.parser')
 
 
     def build_url(self, artist, song) -> str:
-        return '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), song.replace(' ', '-'))
+        url = '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), song.replace(' ', '-'))
+        url = quote(url, safe='/:?=&')
+        return url
 
 
     def get_all_samples(self) -> list:
@@ -86,10 +87,11 @@ class WhoSampledScraper:
         for song in section.find_all('div', class_='sampleEntry'):
             details = song.find_all('div', class_='trackDetails')[0]
 
+            # re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[2])[0]
             songs.append(Song(
                 track=details.find_all('a', class_='trackName')[0].contents[0],
                 artist=details.find_all('span', class_='trackArtist')[0].find_all('a')[0].contents[0],
-                year=re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[2])[0]
+                year='0000'
             ))
         
         return songs
@@ -119,4 +121,7 @@ def get_data(artist, track):
     return json_result
 #endregion
 
+# get_data('Rihanna', 'Pon de Replay')
+# get_data("Macklemore", "Can't Hold Us")
+get_data("N.W.A", "Straight Outta Compton")
 # get_data('Modjo', 'Lady (Hear Me Tonight)')
