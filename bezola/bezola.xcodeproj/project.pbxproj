@@ -18,6 +18,7 @@
 		8094926F275F7270000EE149 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094926E275F7270000EE149 /* SampleData.swift */; };
 		80949273275F7F61000EE149 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949272275F7F61000EE149 /* EventMonitor.swift */; };
 		80949276275F84D4000EE149 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949275275F84D4000EE149 /* PopoverController.swift */; };
+		80949279275FB4C1000EE149 /* TableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949278275FB4C1000EE149 /* TableHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		8094926E275F7270000EE149 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		80949272275F7F61000EE149 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		80949275275F84D4000EE149 /* PopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
+		80949278275FB4C1000EE149 /* TableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,9 +70,9 @@
 			children = (
 				80949264275EA49D000EE149 /* Models */,
 				80949274275F8018000EE149 /* Controllers */,
+				80949277275FADB4000EE149 /* Views */,
 				80949261275EA112000EE149 /* Utils */,
 				80949252275EA0C1000EE149 /* AppDelegate.swift */,
-				80949258275EA0C3000EE149 /* Main.storyboard */,
 				8094925B275EA0C3000EE149 /* bezola.entitlements */,
 				80949256275EA0C3000EE149 /* Assets.xcassets */,
 			);
@@ -83,6 +85,7 @@
 				80949262275EA13C000EE149 /* Spotify.swift */,
 				8094926C275F7213000EE149 /* WhoSampled.swift */,
 				80949272275F7F61000EE149 /* EventMonitor.swift */,
+				80949278275FB4C1000EE149 /* TableHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -103,6 +106,14 @@
 				80949275275F84D4000EE149 /* PopoverController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		80949277275FADB4000EE149 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				80949258275EA0C3000EE149 /* Main.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80949279275FB4C1000EE149 /* TableHandler.swift in Sources */,
 				80949255275EA0C1000EE149 /* MainViewController.swift in Sources */,
 				8094926F275F7270000EE149 /* SampleData.swift in Sources */,
 				8094926D275F7213000EE149 /* WhoSampled.swift in Sources */,
@@ -332,6 +344,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed to fetch python file (May be removed)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -358,6 +371,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed to fetch python file (May be removed)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

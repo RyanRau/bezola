@@ -13,7 +13,7 @@ class WhoSampled {
         let decoder = JSONDecoder()
         let sys = Python.import("sys")
         
-        sys.path.append("/Users/ryanrau/Documents/Code/bezola/who_sampled_scraper/") // TODO: Change to dynamic path
+        sys.path.append("/Users/ryanrau/Documents/Repos/bezola/who_sampled_scraper/") // TODO: Change to dynamic path
         let scraper = Python.import("scraper")
         
 //        scraper.ping() // Sanity check
