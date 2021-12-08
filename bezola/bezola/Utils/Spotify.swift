@@ -30,6 +30,21 @@ struct AppleScripts {
             end if
         end tell
     """
+    
+    
+    static let playerState =
+    """
+        tell application "Spotify"
+            return player state as string
+        end tell
+    """
+    
+    static let togglePlayerState =
+    """
+        tell application "Spotify"
+            playpause
+        end tell
+    """
 }
 
 class Spotify {

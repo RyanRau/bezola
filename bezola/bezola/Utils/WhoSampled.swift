@@ -9,6 +9,7 @@ import Foundation
 import PythonKit
 
 class WhoSampled {
+    
     static func getSampleData(_ track: String, _ artist: String, completion: @escaping (SampleData) -> ()) {
         let decoder = JSONDecoder()
         let sys = Python.import("sys")
@@ -32,6 +33,5 @@ class WhoSampled {
             }
         }
     }
-    
     
 }

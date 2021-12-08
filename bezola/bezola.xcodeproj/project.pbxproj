@@ -20,6 +20,9 @@
 		80949276275F84D4000EE149 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949275275F84D4000EE149 /* PopoverController.swift */; };
 		80949279275FB4C1000EE149 /* TableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949278275FB4C1000EE149 /* TableHandler.swift */; };
 		8094927B27601ED5000EE149 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094927A27601ED5000EE149 /* Helpers.swift */; };
+		8094927D2760BE9C000EE149 /* SpotifyListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094927C2760BE9C000EE149 /* SpotifyListener.swift */; };
+		8094927F2760C9DC000EE149 /* SongTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8094927E2760C9DC000EE149 /* SongTableCell.xib */; };
+		809492812760CA26000EE149 /* SongTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809492802760CA26000EE149 /* SongTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		80949275275F84D4000EE149 /* PopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		80949278275FB4C1000EE149 /* TableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHandler.swift; sourceTree = "<group>"; };
 		8094927A27601ED5000EE149 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		8094927C2760BE9C000EE149 /* SpotifyListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyListener.swift; sourceTree = "<group>"; };
+		8094927E2760C9DC000EE149 /* SongTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableCell.xib; sourceTree = "<group>"; };
+		809492802760CA26000EE149 /* SongTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				80949262275EA13C000EE149 /* Spotify.swift */,
+				8094927C2760BE9C000EE149 /* SpotifyListener.swift */,
 				8094926C275F7213000EE149 /* WhoSampled.swift */,
 				80949272275F7F61000EE149 /* EventMonitor.swift */,
 				80949278275FB4C1000EE149 /* TableHandler.swift */,
@@ -115,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				80949258275EA0C3000EE149 /* Main.storyboard */,
+				809492802760CA26000EE149 /* SongTableCell.swift */,
+				8094927E2760C9DC000EE149 /* SongTableCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80949257275EA0C3000EE149 /* Assets.xcassets in Resources */,
+				8094927F2760C9DC000EE149 /* SongTableCell.xib in Resources */,
 				8094925A275EA0C3000EE149 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80949279275FB4C1000EE149 /* TableHandler.swift in Sources */,
+				8094927D2760BE9C000EE149 /* SpotifyListener.swift in Sources */,
 				80949255275EA0C1000EE149 /* MainViewController.swift in Sources */,
 				8094926F275F7270000EE149 /* SampleData.swift in Sources */,
 				8094927B27601ED5000EE149 /* Helpers.swift in Sources */,
@@ -204,6 +215,7 @@
 				80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */,
 				80949268275EAE55000EE149 /* Song.swift in Sources */,
 				80949276275F84D4000EE149 /* PopoverController.swift in Sources */,
+				809492812760CA26000EE149 /* SongTableCell.swift in Sources */,
 				80949273275F7F61000EE149 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

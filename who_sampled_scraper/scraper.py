@@ -12,10 +12,11 @@ class SampleData:
         self.sampled_by = sampled_by
 
 class Song:
-    def __init__(self, track, artist, year) -> None:
+    def __init__(self, track, artist, year, albumURL) -> None:
         self.track = track
         self.artist = artist
         self.year = year
+        self.albumURL = albumURL
 
 
 class WhoSampledScraper:
@@ -96,11 +97,13 @@ class WhoSampledScraper:
         for song in section.find_all('div', class_='sampleEntry'):
             try:
                 details = song.find_all('div', class_='trackDetails')[0]
+                img = song.find_all('img')[0]['src']
 
                 songs.append(Song(
                     track=details.find_all('a', class_='trackName')[0].contents[0],
                     artist=details.find_all('span', class_='trackArtist')[0].find_all('a')[0].contents[0],
-                    year=re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[-1])[0]
+                    year=re.findall(r"[0-9]{4,7}", details.find_all('span', class_='trackArtist')[0].contents[-1])[0],
+                    albumURL=self.BASE_URL + img
                 ))
             except:
                 traceback.print_exc()
@@ -136,7 +139,8 @@ def get_data(artist, track):
 
 
 if __name__=="__main__":
-    get_data('Rihanna', 'Pon de Replay')
+    # get_data('Rihanna', 'Pon de Replay')
+    get_data('Tears-For-Fears','Everybody-Wants-To-Rule-The-World')
     # get_data("Macklemore", "Can't Hold Us")
     # get_data("N.W.A", "Straight Outta Compton")
     # get_data('Modjo', 'Lady (Hear Me Tonight)')

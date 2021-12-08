@@ -22,8 +22,13 @@ class MainViewController: NSViewController {
     var sampleHandler: TableHandler = TableHandler()
     var sampledByHandler: TableHandler = TableHandler()
     
+    let spotifyListener = SpotifyListener()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        spotifyListener.delegate = self
+        
         sampleTableView.headerView = nil
         sampledByTableView.headerView = nil
         
@@ -82,6 +87,14 @@ extension MainViewController {
                 completion(false, NSImage(data: data))
             }
         }
+    }
+    
+}
+
+extension MainViewController: SpotifyListenerDelegate {
+    
+    func playbackStateChanged() {
+        print("spotify Updated")
     }
     
 }

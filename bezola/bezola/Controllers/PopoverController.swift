@@ -27,14 +27,13 @@ class PopoverController {
             statusBarButton.action = #selector(togglePopover(sender:))
             statusBarButton.target = self
         }
-
+        
         popover.contentViewController = MainViewController.freshController()
     }
     
     func exit() {
         Darwin.exit(0)
     }
-    
     
     @objc func togglePopover(sender: AnyObject) {
         if(popover.isShown) {

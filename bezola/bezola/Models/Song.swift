@@ -17,9 +17,9 @@ struct Song {
     init(_ input: String) {
         let split = input.split(separator: "%").map(String.init)
         
-        self.track = split[0]
-        self.artist = split[1]
-        self.albumURL = split[2]
+        self.track = split.count > 0 ? split[0] : "Failed to retrieve track"
+        self.artist = split.count > 1 ? split[1] : "Failed to retrieve artist"
+        self.albumURL = split.count > 2 ? split[2] : "Failed to retrieve album art url"
         
         self.year = "N/A"
     }
@@ -31,6 +31,7 @@ struct Song {
         self.albumURL = "N/A"
         self.year = "N/A"
     }
+    
     
     func getTrack() -> String {
         return self.track
@@ -46,8 +47,9 @@ struct Song {
 }
 
 extension Song: Decodable {
+    
     private enum CodingKeys: String, CodingKey {
-        case track, artist, year
+        case track, artist, year, albumURL
     }
     
     init(from decoder: Decoder) throws {
@@ -55,8 +57,7 @@ extension Song: Decodable {
         track = try container.decode(String.self, forKey: .track)
         artist = try container.decode(String.self, forKey: .artist)
         year = try container.decode(String.self, forKey: .year)
-        
-        albumURL = "N/A"
+        albumURL = try container.decode(String.self, forKey: .albumURL)
     }
     
 }

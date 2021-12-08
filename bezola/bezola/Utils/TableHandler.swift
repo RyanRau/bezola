@@ -34,10 +34,21 @@ extension TableHandler: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let sample = data[row]
         
-        let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "dataCell")
-        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
-        cellView.textField?.stringValue = sample.track + " - " + sample.artist + " (" + sample.year + ")"
-        return cellView
+        let view = SongTableCell()
+        view.track.stringValue = sample.track
+        view.artist.stringValue = sample.artist
+        view.year.stringValue = sample.year
+        
+        view.loadImage(url: sample.albumURL)
+        
+        return view
+        
+//        let sample = data[row]
+//
+//        let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "dataCell")
+//        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
+//        cellView.textField?.stringValue = sample.track + " - " + sample.artist + " (" + sample.year + ")"
+//        return cellView
             
     }
 
