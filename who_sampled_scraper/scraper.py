@@ -5,6 +5,12 @@ import traceback
 from bs4 import BeautifulSoup
 from urllib.parse import quote
 
+#region Exception Lists
+ARTIST_EXCEPTIONS = {
+    'N.W.A.': 'N.W.A'
+}
+#endregion
+
 #region Classes
 class SampleData:
     def __init__(self, samples, sampled_by, isError=False) -> None:
@@ -30,6 +36,18 @@ class WhoSampledScraper:
         self.URL = self.build_url(artist, track)
         
     def build_url(self, artist, track) -> str:
+        if artist in ARTIST_EXCEPTIONS:
+            artist = ARTIST_EXCEPTIONS[artist]
+        
+        # TODO: Can probably be cleaned up/optimized; regex?
+        # Clean track in cases such as 'track - remastered', 'track (feat. artist)'
+        track = track.lower()
+        dirty_identifiers = ['-', 'remaster', 'remastered', 'feat', 'remix', '(with', 'ft.', 'radio edit']
+        if any(dirty in track for dirty in dirty_identifiers):
+            track_split = track.split(' ')
+            dirty_indexes = [i for i in range(len(track_split)) if any(dirty in track_split[i] for dirty in dirty_identifiers)]
+            track = ' '.join(track_split[:dirty_indexes[0]])
+
         url = '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), track.replace(' ', '-'))
         url = quote(url, safe='/:?=&()')
         
@@ -87,7 +105,7 @@ class WhoSampledScraper:
         Parses out sample entry html to song objects
 
         Args:
-            section: bs4 section which containes sample entries to be parsed out
+            section: bs4 section which contains sample entries to be parsed out
         Returns:
             songs: List of Song objects parsed from sample entries
         '''
@@ -139,8 +157,11 @@ def get_data(artist, track):
 
 
 if __name__=="__main__":
+    # Special cases that need extra handling
+    get_data('Labi Siffre','I Got The... - 2006 Remaster')
+    get_data("N.W.A", "Straight Outta Compton")
+
     # get_data('Rihanna', 'Pon de Replay')
-    get_data('Tears-For-Fears','Everybody-Wants-To-Rule-The-World')
+    # get_data('Tears-For-Fears','Everybody-Wants-To-Rule-The-World')
     # get_data("Macklemore", "Can't Hold Us")
-    # get_data("N.W.A", "Straight Outta Compton")
     # get_data('Modjo', 'Lady (Hear Me Tonight)')
