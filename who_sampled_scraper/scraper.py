@@ -11,7 +11,8 @@ ARTIST_EXCEPTIONS = {
 }
 #endregion
 
-#region Classes
+
+#region Object Classes
 class SampleData:
     def __init__(self, samples, sampled_by, isError=False) -> None:
         self.samples = samples
@@ -24,7 +25,10 @@ class Song:
         self.year = year
         self.albumURL = albumURL
 
+#endregion
 
+
+#region Scraper
 class WhoSampledScraper:
     BASE_URL = 'https://www.whosampled.com'
     HEADERS = {
@@ -161,7 +165,6 @@ if __name__=="__main__":
     get_data('Labi Siffre','I Got The... - 2006 Remaster')
     get_data("N.W.A", "Straight Outta Compton")
 
-    # get_data('Rihanna', 'Pon de Replay')
     # get_data('Tears-For-Fears','Everybody-Wants-To-Rule-The-World')
     # get_data("Macklemore", "Can't Hold Us")
     # get_data('Modjo', 'Lady (Hear Me Tonight)')
