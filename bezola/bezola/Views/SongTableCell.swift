@@ -66,6 +66,10 @@ class SongTableCell: NSView {
                 self.addSubview(mainView!)
                 
                 mainView?.translatesAutoresizingMaskIntoConstraints = false
+//                mainView?.widthAnchor.constraint(equalToConstant: 385).isActive = true
+//                mainView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
+                
+//
                 mainView?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
                 mainView?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
                 mainView?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -104,17 +108,7 @@ class SongTableCell: NSView {
         }
     }
     
-    func togglePlayButton(isActive: Bool) {
-        guard (spotifyTrackUri != nil) else { return }
-        
-        if !isActive {
-            playButton.isHidden = true
-            return
-        }
-        
-        playButton.isHidden = false
-    }
-    
+
     @IBAction func addToQueue(_ sender: Any) {
         if let onAddToQueue = self.onAddToQueue {
             onAddToQueue()
@@ -124,6 +118,18 @@ class SongTableCell: NSView {
     @IBAction func playTrack(_ sender: Any) {
         guard let uri = spotifyTrackUri else { return }
         SpotifyOSX.playTrack(uri)
+    }
+    
+
+    func togglePlayButton(isActive: Bool) {
+        guard (spotifyTrackUri != nil) else { return }
+        
+        if !isActive {
+            playButton.isHidden = true
+            return
+        }
+        
+        playButton.isHidden = false
     }
     
     func viewInSpotify() {
