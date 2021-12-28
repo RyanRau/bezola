@@ -27,6 +27,38 @@ class SpotifyOSX {
         return false
     }
     
+    static func getPlaybackState() -> Bool {
+        guard isRunning() == true else { return false }
+        
+        var error: NSDictionary?
+        if let scriptObject = NSAppleScript(source: AppleScripts.playerState) {
+            let output = scriptObject.executeAndReturnError(&error)
+            
+            if error != nil {
+                print("APPLE SCRIPT ERROR: \(error as Any)")
+                return false
+            }
+            
+            if let data = output.stringValue {
+                return (data == "playing" ? true : false)
+            }
+        }
+        return false
+    }
+    
+    static func togglePlaybackState() {
+        guard isRunning() == true else { return }
+        
+        var error: NSDictionary?
+        if let scriptObject = NSAppleScript(source: AppleScripts.togglePlayerState) {
+            let output = scriptObject.executeAndReturnError(&error)
+            
+            if error != nil {
+                print("APPLE SCRIPT ERROR: \(error as Any)")
+            }
+        }
+    }
+    
     static func getCurrentlyPlaying() -> Song {
         guard isRunning() == true else { return Song() }
         

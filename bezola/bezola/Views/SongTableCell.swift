@@ -17,6 +17,8 @@ class SongTableCell: NSView {
     
     var mainView: NSView?
     
+    var onAddToQueue : (() -> Void)? = nil
+    
     init() {
         super.init(frame: NSRect.zero)
         _ = load(fromNIBNamed: "SongTableCell")
@@ -58,6 +60,12 @@ class SongTableCell: NSView {
         }
         
         return false
+    }
+    
+    @IBAction func addToQueue(_ sender: Any) {
+        if let onAddToQueue = self.onAddToQueue {
+            onAddToQueue()
+        }
     }
 }
 

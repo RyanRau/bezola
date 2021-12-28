@@ -10,6 +10,7 @@ import Cocoa
 import Combine
 import KeychainAccess
 import SpotifyWebAPI
+import SpotifyExampleContent
 
 final class Spotify: ObservableObject {
     private static let spotifyCredentials = Helpers.getSpotifyCredentials()
@@ -45,7 +46,6 @@ final class Spotify: ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveValue: authorizationManagerDidDeauthorize)
             .store(in: &cancellables)
-        
         
         if let authManagerData = keychain[data: self.authorizationManagerKey] {
             do {
@@ -89,7 +89,76 @@ extension Spotify {
             .store(in: &cancellables)
     }
     
-    func searchTrack(_ track: String, _ artist: String) {
+    func getCurrentDevice(completion: @escaping (Device?) -> ()) {
+        guard self.isAuthorized else { return }
+        
+        DispatchQueue.main.async() {
+            self.api.availableDevices().sink(
+                receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        print("ERROR HASS OCCURED: \(error)")
+                    }
+                },
+                receiveValue: { results in
+                    for device in results {
+                        if device.isActive{
+                            completion(device)
+                        }
+                    }
+                    completion(nil)
+                }
+            ).store(in: &self.cancellables)
+        }
+    }
+    
+    func addTrackToQueue(track: Track, sucess: @escaping (Bool) -> ())  {
+        guard self.isAuthorized else { return }
+    
+        DispatchQueue.main.async() {
+            self.api.addToQueue(track.uri! as SpotifyURIConvertible)
+                .sink(
+                    receiveCompletion: { completion in
+                        if case .failure(let error) = completion {
+                            print("ERROR HASS OCCURED: \(error)")
+                            sucess(false)
+                        }
+                        sucess(true)
+                    }
+                ).store(in: &self.cancellables)
+        }
+    }
+    
+    func getFirstTrackMatch(track: String, artist: String, completion: @escaping (Track?) -> ()) {
+        guard self.isAuthorized else { return }
+        
+        DispatchQueue.main.async() {
+            self.api.search(
+                query: "track:\(track) artist:\(artist)",
+                categories: [.track],
+                limit: 1
+            ).sink(
+                receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        print("ERROR HASS OCCURED: \(error)")
+                    }
+                },
+                receiveValue: { result in
+                    guard let tracks = result.tracks else {
+                        completion(nil)
+                        return
+                    }
+                    
+                    if tracks.items.isEmpty {
+                        completion(nil)
+                    }else {
+                        completion(tracks.items[0])
+                    }
+                }
+            ).store(in: &self.cancellables)
+        }
+    }
+    
+    func searchTrack(_ track: String, _ artist: String){
         guard self.isAuthorized else { return }
     }
     
@@ -138,7 +207,8 @@ extension Spotify {
                .playlistModifyPrivate,
                .userModifyPlaybackState,
                .playlistReadCollaborative,
-               .userReadPlaybackPosition
+               .userReadPlaybackPosition,
+               .userReadPlaybackState
            ]
        )!
        NSWorkspace.shared.open(authorizationURL)

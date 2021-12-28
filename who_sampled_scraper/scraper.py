@@ -7,7 +7,8 @@ from urllib.parse import quote
 
 #region Exception Lists
 ARTIST_EXCEPTIONS = {
-    'N.W.A.': 'N.W.A'
+    'N.W.A.': 'N.W.A',
+    'The Ponderosa Twins Plus One': 'Ponderosa Twins Plus One'
 }
 #endregion
 

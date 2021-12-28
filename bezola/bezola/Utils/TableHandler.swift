@@ -11,6 +11,8 @@ import Cocoa
 class TableHandler: NSObject {
     var data: [Song]
     
+    var onAddToQueue : ((Song) -> Void)? = nil
+    
     override init(){
         self.data = []
     }
@@ -38,18 +40,15 @@ extension TableHandler: NSTableViewDelegate {
         view.track.stringValue = sample.track
         view.artist.stringValue = sample.artist
         view.year.stringValue = sample.year
+        view.onAddToQueue = {
+            if let onAddToQueue = self.onAddToQueue {
+                onAddToQueue(self.data[row])
+            }
+        }
         
         view.loadImage(url: sample.albumURL)
         
         return view
-        
-//        let sample = data[row]
-//
-//        let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "dataCell")
-//        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
-//        cellView.textField?.stringValue = sample.track + " - " + sample.artist + " (" + sample.year + ")"
-//        return cellView
-            
     }
 
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {

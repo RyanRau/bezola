@@ -9,6 +9,15 @@ import Foundation
 import Cocoa
 
 class Helpers {
+    static func createTrackingArea(control: NSControl) -> NSTrackingArea {
+        return NSTrackingArea.init(
+            rect: control.bounds,
+            options: [.mouseEnteredAndExited, .activeAlways],
+            owner: control,
+            userInfo: nil
+        )
+    }
+    
     static func fetchImage(url: String, completion: @escaping (Bool, NSImage?) -> ()) {
         Helpers.get(url: url)  { data, response, error in
             DispatchQueue.main.async() {

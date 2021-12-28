@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import WebKit
 
 class MainViewController: NSViewController {
     @IBOutlet weak var trackTitle: NSTextField!
@@ -13,6 +14,7 @@ class MainViewController: NSViewController {
     @IBOutlet weak var albumArt: NSImageView!
     
     @IBOutlet weak var settingsButton: NSButton!
+    @IBOutlet weak var playbackStateButton: NSButton!
     
     @IBOutlet weak var sampleTableView: NSTableView!
     @IBOutlet weak var sampledByTableView: NSTableView!
@@ -27,6 +29,7 @@ class MainViewController: NSViewController {
     let spotifyListener = SpotifyListener()
     
     var spotifyAuthStatus = false
+    var isPlaying = false
 
     var popoverControllerRef: PopoverController? = nil
     
@@ -34,6 +37,7 @@ class MainViewController: NSViewController {
         super.viewDidLoad()
     
         spotifyListener.delegate = self
+        configHoverAreas()
         
         self.configTables()
         self.getAndSetData()
@@ -53,10 +57,48 @@ class MainViewController: NSViewController {
         self.popoverControllerRef?.hidePopover(nil)
     }
     
+    override func mouseEntered(with event: NSEvent) {
+        if let owner = event.trackingArea?.owner as? NSControl {
+            let id : String = owner.identifier!.rawValue
+
+            switch id {
+                case self.albumArt.identifier!.rawValue:
+                    self.togglePlaybackStateButton(isActive: true)
+                default:
+                    return
+            }
+        }
+    }
+        
+    override func mouseExited(with event: NSEvent) {
+        if let owner = event.trackingArea?.owner as? NSControl {
+            let id : String = owner.identifier!.rawValue
+
+            switch id {
+                case self.albumArt.identifier!.rawValue:
+                    self.togglePlaybackStateButton(isActive: false)
+                default:
+                    return
+            }
+        }
+    }
+    
+    @IBAction func togglePlaybackState(_ sender: Any) {
+        SpotifyOSX.togglePlaybackState()
+    }
+}
+
+extension MainViewController {
+    func configHoverAreas() {
+        self.albumArt.addTrackingArea(Helpers.createTrackingArea(control: self.albumArt))
+    }
     
     func configTables(){
         sampleTableView.headerView = nil
         sampledByTableView.headerView = nil
+        
+        sampleHandler.onAddToQueue = { self.addToQueue($0) }
+        sampledByHandler.onAddToQueue = { self.addToQueue($0) }
         
         self.sampleHandler.updateData(self.sampleData.samples)
         sampleTableView.delegate = self.sampleHandler
@@ -66,10 +108,15 @@ class MainViewController: NSViewController {
         sampledByTableView.delegate = self.sampledByHandler
         sampledByTableView.dataSource = self.sampledByHandler
     }
-}
 
-extension MainViewController {
+    
     func getAndSetData(){
+        self.isPlaying = SpotifyOSX.getPlaybackState()
+        playbackStateButton.image = NSImage(
+            systemSymbolName: (isPlaying ? "pause" : "play"),
+            accessibilityDescription: nil
+        )
+        
         self.current = SpotifyOSX.getCurrentlyPlaying()
         
         trackTitle.stringValue = current.track
@@ -96,6 +143,27 @@ extension MainViewController {
         }
     }
     
+    func addToQueue(_ song: Song) {
+        spotify.getFirstTrackMatch(track: song.track, artist: song.artist) { result in
+            if result == nil {
+                print("failed to add")
+                return
+            }
+            self.spotify.addTrackToQueue(track: result!) { sucess in
+                print(sucess)
+            }
+        }
+    }
+    
+    private func togglePlaybackStateButton(isActive: Bool) {
+        if !isActive {
+            playbackStateButton.isHidden = true
+            return
+        }
+        
+        playbackStateButton.isHidden = false
+    }
+    
     func fetchImage(completion: @escaping (Bool, NSImage?) -> ()) {
         Helpers.get(url: current.albumURL)  { data, response, error in
             DispatchQueue.main.async() {
@@ -107,7 +175,6 @@ extension MainViewController {
             }
         }
     }
-    
 }
 
 extension MainViewController: SpotifyListenerDelegate {

@@ -887,6 +887,17 @@
                                     <segue destination="cwv-LB-yZM" kind="show" identifier="SettingsSegue" id="6hR-Jf-Fch"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kAD-2M-4m2">
+                                <rect key="frame" x="55" y="554" width="48.5" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="5Io-vI-uaa">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="togglePlaybackState:" target="bYE-qA-Dzg" id="nsL-rD-02b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Udx-SV-QLX" firstAttribute="leading" secondItem="Jnb-LN-y2J" secondAttribute="trailing" constant="15" id="1XO-ai-cIm"/>
@@ -902,6 +913,7 @@
                     <connections>
                         <outlet property="albumArt" destination="Jnb-LN-y2J" id="SJd-Ig-D5f"/>
                         <outlet property="artistTitle" destination="Obg-aQ-Hgw" id="sKn-YC-Bhg"/>
+                        <outlet property="playbackStateButton" destination="kAD-2M-4m2" id="pEN-vk-9Ho"/>
                         <outlet property="sampleTableView" destination="fkm-Wi-dKG" id="pdI-Ku-NdO"/>
                         <outlet property="sampledByTableView" destination="ktv-8n-SRb" id="vSc-0x-2EF"/>
                         <outlet property="spotifyButton" destination="gui-gi-erZ" id="oGI-H2-oM1"/>
@@ -984,10 +996,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Akh-c2-aAI"/>
+        <segue reference="6hR-Jf-Fch"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="16" height="9"/>
+        <image name="play" catalog="system" width="12" height="13"/>
         <image name="questionmark.app" catalog="system" width="15" height="14"/>
     </resources>
 </document>
