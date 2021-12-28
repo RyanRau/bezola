@@ -154,7 +154,7 @@ def get_data(artist, track):
     
     result = scraper.get_all_samples()
     json_result = json.dumps(result, default=obj_dict)
-    print(json_result)
+    # print(json_result)
 
     return json_result
 #endregion

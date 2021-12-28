@@ -8,10 +8,12 @@
 import Cocoa
 
 class MainViewController: NSViewController {
-    
     @IBOutlet weak var trackTitle: NSTextField!
     @IBOutlet weak var artistTitle: NSTextField!
     @IBOutlet weak var albumArt: NSImageView!
+    
+    @IBOutlet weak var currentUser: NSTextField!
+    @IBOutlet weak var spotifyButton: NSButton!
     
     @IBOutlet weak var sampleTableView: NSTableView!
     @IBOutlet weak var sampledByTableView: NSTableView!
@@ -22,13 +24,38 @@ class MainViewController: NSViewController {
     var sampleHandler: TableHandler = TableHandler()
     var sampledByHandler: TableHandler = TableHandler()
     
+    var spotify: Spotify = Spotify(isPlaceholder: true) // inits as placeholder class; avoids optional unwrapping
     let spotifyListener = SpotifyListener()
+    
+    var spotifyAuthStatus = false
+
+    var popoverControllerRef: PopoverController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         spotifyListener.delegate = self
         
+        self.configTables()
+        self.getAndSetData()
+    }
+    
+    override func viewWillAppear() {
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "SettingsSegue" {
+            let settingsController = segue.destinationController as! SettingsViewController
+            settingsController.spotify = self.spotify
+        }
+        
+        self.popoverControllerRef?.hidePopover(nil)
+    }
+    
+    
+    func configTables(){
         sampleTableView.headerView = nil
         sampledByTableView.headerView = nil
         
@@ -40,22 +67,25 @@ class MainViewController: NSViewController {
         sampledByTableView.delegate = self.sampledByHandler
         sampledByTableView.dataSource = self.sampledByHandler
     }
-    
-    override func viewWillAppear() {
-        self.current = getSpotifyData()
-        self.getAndSetSampleData()
-
-        setViewWithData()
-    }
-
 }
 
 extension MainViewController {
-    func getSpotifyData() -> Song {
-        return Spotify.getCurrentlyPlaying()
+    func getAndSetData(){
+        self.current = SpotifyOSX.getCurrentlyPlaying()
+        
+        trackTitle.stringValue = current.track
+        artistTitle.stringValue = current.artist
+        
+        fetchImage { error, image in
+            guard let image = image else { return }
+
+            self.albumArt.image = image
+        }
+        
+        self.getAndSetWhoSampledData()
     }
     
-    func getAndSetSampleData() {
+    func getAndSetWhoSampledData() {
         WhoSampled.getSampleData(self.current.track, self.current.artist) { sampleData in
             self.sampleData = sampleData
 
@@ -64,16 +94,6 @@ extension MainViewController {
             
             self.sampleTableView.reloadData()
             self.sampledByTableView.reloadData()
-        }
-    }
-    
-    func setViewWithData() {
-        trackTitle.stringValue = current.track
-        artistTitle.stringValue = current.artist
-        
-        fetchImage { error, image in
-            guard let image = image else { return }
-            self.albumArt.image = image
         }
     }
     
@@ -92,20 +112,22 @@ extension MainViewController {
 }
 
 extension MainViewController: SpotifyListenerDelegate {
-    
     func playbackStateChanged() {
-        print("spotify Updated")
+        self.getAndSetData()
     }
-    
 }
 
 extension MainViewController {
-    static func freshController() -> MainViewController {
+    static func freshController(_ spotify: Spotify, _ popoverControllerRef: PopoverController) -> MainViewController {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let identifier = "MainViewController"
-        guard let viewcontroller = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(identifier)) as? MainViewController else {
+        guard let viewcontroller =
+                storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("MainViewController")) as? MainViewController else {
             fatalError("Can't find view from storyboard")
         }
+        
+        viewcontroller.spotify = spotify
+        viewcontroller.popoverControllerRef = popoverControllerRef
+        
         return viewcontroller
     }
 }

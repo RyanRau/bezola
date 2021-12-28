@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8008729F2779D9EF00709387 /* AppleScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008729E2779D9EF00709387 /* AppleScripts.swift */; };
+		800872A5277A7E0200709387 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A4277A7E0200709387 /* SettingsViewController.swift */; };
+		800872A8277B4A1C00709387 /* SpotifyOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A7277B4A1C00709387 /* SpotifyOSX.swift */; };
 		80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949252275EA0C1000EE149 /* AppDelegate.swift */; };
 		80949255275EA0C1000EE149 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949254275EA0C1000EE149 /* MainViewController.swift */; };
 		80949257275EA0C3000EE149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80949256275EA0C3000EE149 /* Assets.xcassets */; };
@@ -23,9 +26,14 @@
 		8094927D2760BE9C000EE149 /* SpotifyListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094927C2760BE9C000EE149 /* SpotifyListener.swift */; };
 		8094927F2760C9DC000EE149 /* SongTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8094927E2760C9DC000EE149 /* SongTableCell.xib */; };
 		809492812760CA26000EE149 /* SongTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809492802760CA26000EE149 /* SongTableCell.swift */; };
+		80B169082773D36C001E8518 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 80B169072773D36C001E8518 /* SpotifyAPI */; };
+		80BDE850277903CA00842AAF /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 80BDE84F277903CA00842AAF /* KeychainAccess */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8008729E2779D9EF00709387 /* AppleScripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScripts.swift; sourceTree = "<group>"; };
+		800872A4277A7E0200709387 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		800872A7277B4A1C00709387 /* SpotifyOSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyOSX.swift; sourceTree = "<group>"; };
 		8094924F275EA0C1000EE149 /* bezola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bezola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80949252275EA0C1000EE149 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80949254275EA0C1000EE149 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +51,7 @@
 		8094927C2760BE9C000EE149 /* SpotifyListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyListener.swift; sourceTree = "<group>"; };
 		8094927E2760C9DC000EE149 /* SongTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableCell.xib; sourceTree = "<group>"; };
 		809492802760CA26000EE149 /* SongTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableCell.swift; sourceTree = "<group>"; };
+		80B169052773D048001E8518 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,13 +59,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B169082773D36C001E8518 /* SpotifyAPI in Frameworks */,
 				8094926B275EBB07000EE149 /* PythonKit in Frameworks */,
+				80BDE850277903CA00842AAF /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		800872A6277B2D0E00709387 /* MusicUtils */ = {
+			isa = PBXGroup;
+			children = (
+				80949262275EA13C000EE149 /* Spotify.swift */,
+				800872A7277B4A1C00709387 /* SpotifyOSX.swift */,
+				8094927C2760BE9C000EE149 /* SpotifyListener.swift */,
+				8094926C275F7213000EE149 /* WhoSampled.swift */,
+			);
+			path = MusicUtils;
+			sourceTree = "<group>";
+		};
 		80949246275EA0C1000EE149 = {
 			isa = PBXGroup;
 			children = (
@@ -76,10 +98,12 @@
 		80949251275EA0C1000EE149 /* bezola */ = {
 			isa = PBXGroup;
 			children = (
+				80B169052773D048001E8518 /* Info.plist */,
 				80949264275EA49D000EE149 /* Models */,
 				80949274275F8018000EE149 /* Controllers */,
 				80949277275FADB4000EE149 /* Views */,
 				80949261275EA112000EE149 /* Utils */,
+				800872A6277B2D0E00709387 /* MusicUtils */,
 				80949252275EA0C1000EE149 /* AppDelegate.swift */,
 				8094925B275EA0C3000EE149 /* bezola.entitlements */,
 				80949256275EA0C3000EE149 /* Assets.xcassets */,
@@ -90,12 +114,10 @@
 		80949261275EA112000EE149 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				80949262275EA13C000EE149 /* Spotify.swift */,
-				8094927C2760BE9C000EE149 /* SpotifyListener.swift */,
-				8094926C275F7213000EE149 /* WhoSampled.swift */,
 				80949272275F7F61000EE149 /* EventMonitor.swift */,
 				80949278275FB4C1000EE149 /* TableHandler.swift */,
 				8094927A27601ED5000EE149 /* Helpers.swift */,
+				8008729E2779D9EF00709387 /* AppleScripts.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -112,8 +134,9 @@
 		80949274275F8018000EE149 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				80949254275EA0C1000EE149 /* MainViewController.swift */,
 				80949275275F84D4000EE149 /* PopoverController.swift */,
+				80949254275EA0C1000EE149 /* MainViewController.swift */,
+				800872A4277A7E0200709387 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -122,8 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				80949258275EA0C3000EE149 /* Main.storyboard */,
-				809492802760CA26000EE149 /* SongTableCell.swift */,
 				8094927E2760C9DC000EE149 /* SongTableCell.xib */,
+				809492802760CA26000EE149 /* SongTableCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +169,8 @@
 			name = bezola;
 			packageProductDependencies = (
 				8094926A275EBB07000EE149 /* PythonKit */,
+				80B169072773D36C001E8518 /* SpotifyAPI */,
+				80BDE84F277903CA00842AAF /* KeychainAccess */,
 			);
 			productName = bezola;
 			productReference = 8094924F275EA0C1000EE149 /* bezola.app */;
@@ -159,7 +184,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					8094924E275EA0C1000EE149 = {
 						CreatedOnToolsVersion = 13.1;
@@ -177,6 +202,8 @@
 			mainGroup = 80949246275EA0C1000EE149;
 			packageReferences = (
 				80949269275EBB07000EE149 /* XCRemoteSwiftPackageReference "PythonKit" */,
+				80B169062773D36C001E8518 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
+				80BDE84E277903CA00842AAF /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 80949250275EA0C1000EE149 /* Products */;
 			projectDirPath = "";
@@ -206,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80949279275FB4C1000EE149 /* TableHandler.swift in Sources */,
+				800872A8277B4A1C00709387 /* SpotifyOSX.swift in Sources */,
 				8094927D2760BE9C000EE149 /* SpotifyListener.swift in Sources */,
 				80949255275EA0C1000EE149 /* MainViewController.swift in Sources */,
 				8094926F275F7270000EE149 /* SampleData.swift in Sources */,
@@ -214,7 +242,9 @@
 				80949263275EA13C000EE149 /* Spotify.swift in Sources */,
 				80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */,
 				80949268275EAE55000EE149 /* Song.swift in Sources */,
+				800872A5277A7E0200709387 /* SettingsViewController.swift in Sources */,
 				80949276275F84D4000EE149 /* PopoverController.swift in Sources */,
+				8008729F2779D9EF00709387 /* AppleScripts.swift in Sources */,
 				809492812760CA26000EE149 /* SongTableCell.swift in Sources */,
 				80949273275F7F61000EE149 /* EventMonitor.swift in Sources */,
 			);
@@ -292,6 +322,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -346,6 +377,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -355,10 +387,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = bezola/bezola.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bezola/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed for python script access";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -382,10 +417,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = bezola/bezola.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bezola/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Needed to use fetch Spotify data from system";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Needed for python script access";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -435,6 +473,22 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		80B169062773D36C001E8518 /* XCRemoteSwiftPackageReference "SpotifyAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Peter-Schorn/SpotifyAPI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		80BDE84E277903CA00842AAF /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -442,6 +496,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80949269275EBB07000EE149 /* XCRemoteSwiftPackageReference "PythonKit" */;
 			productName = PythonKit;
+		};
+		80B169072773D36C001E8518 /* SpotifyAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80B169062773D36C001E8518 /* XCRemoteSwiftPackageReference "SpotifyAPI" */;
+			productName = SpotifyAPI;
+		};
+		80BDE84F277903CA00842AAF /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80BDE84E277903CA00842AAF /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

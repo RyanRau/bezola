@@ -18,7 +18,7 @@ class PopoverController {
         self.eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
     }
     
-    func set() {
+    func set(_ spotify: Spotify) {
         if let statusBarButton = statusItem.button {
             statusBarButton.image = #imageLiteral(resourceName: "StatusBarIcon")
             statusBarButton.image?.size = NSSize(width: 34.0, height: 18.0)
@@ -28,14 +28,14 @@ class PopoverController {
             statusBarButton.target = self
         }
         
-        popover.contentViewController = MainViewController.freshController()
+        popover.contentViewController = MainViewController.freshController(spotify, self)
     }
     
     func exit() {
         Darwin.exit(0)
     }
     
-    @objc func togglePopover(sender: AnyObject) {
+    @objc func togglePopover(sender: AnyObject?) {
         if(popover.isShown) {
             hidePopover(sender)
         }
@@ -44,14 +44,14 @@ class PopoverController {
         }
     }
     
-    func showPopover(_ sender: AnyObject) {
+    func showPopover(_ sender: AnyObject?) {
         if let statusBarButton = statusItem.button {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
             eventMonitor?.start()
         }
     }
     
-    func hidePopover(_ sender: AnyObject) {
+    func hidePopover(_ sender: AnyObject?) {
         popover.performClose(sender)
         eventMonitor?.stop()
     }

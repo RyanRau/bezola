@@ -9,7 +9,6 @@ import Foundation
 import Cocoa
 
 class Helpers {
-    
     static func fetchImage(url: String, completion: @escaping (Bool, NSImage?) -> ()) {
         Helpers.get(url: url)  { data, response, error in
             DispatchQueue.main.async() {
@@ -29,4 +28,14 @@ class Helpers {
         }.resume()
     }
     
+    static func getSpotifyCredentials() -> (clientId: String, clientSecret: String) {
+        guard let clientId = ProcessInfo.processInfo.environment["CLIENT_ID"] else {
+            fatalError("couldn't find 'CLIENT_ID' in environment variables")
+        }
+        guard let clientSecret = ProcessInfo.processInfo.environment["CLIENT_SECRET"] else {
+            fatalError("couldn't find 'CLIENT_SECRET' in environment variables")
+        }
+        return (clientId: clientId, clientSecret: clientSecret)
+    }
+
 }
