@@ -56,7 +56,7 @@ class WhoSampledScraper:
         url = '{}/{}/{}/'.format(self.BASE_URL, artist.replace(' ', '-'), track.replace(' ', '-'))
         url = quote(url, safe='/:?=&()')
         
-        print(url)
+        # print(url)
         return url
 
 
