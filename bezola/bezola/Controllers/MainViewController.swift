@@ -12,8 +12,7 @@ class MainViewController: NSViewController {
     @IBOutlet weak var artistTitle: NSTextField!
     @IBOutlet weak var albumArt: NSImageView!
     
-    @IBOutlet weak var currentUser: NSTextField!
-    @IBOutlet weak var spotifyButton: NSButton!
+    @IBOutlet weak var settingsButton: NSButton!
     
     @IBOutlet weak var sampleTableView: NSTableView!
     @IBOutlet weak var sampledByTableView: NSTableView!
