@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Invalid Scheme for Spotify redirect URL")
             return
         }
-        
+
         self.spotify.onCallBack(urls[0])
     }
 }

@@ -11,10 +11,18 @@ import PythonKit
 class WhoSampled {
     static func getSampleData(_ track: String, _ artist: String, completion: @escaping (WhoSampledData) -> ()) {
         let decoder = JSONDecoder()
+        let file = Array("scraper.py")
         let sys = Python.import("sys")
         
         DispatchQueue.main.async() {
-            sys.path.append("/Users/ryanrau/Documents/Repos/bezola/who_sampled_scraper/") // TODO: Change to dynamic path
+            guard let fullPath = Bundle.main.path(forResource: String(file[..<7]), ofType: String(file[8...])) else {
+                print("FAILED TO LOAD PYTHON FILE")
+                return
+            }
+            let directoryPath = String(Array(fullPath)[..<(fullPath.count - file.count)])
+            
+            sys.path.append(directoryPath)
+            
             let scraper = Python.import("scraper")
             
 //            scraper.ping() // Sanity check

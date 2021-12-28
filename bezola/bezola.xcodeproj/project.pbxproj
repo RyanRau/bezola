@@ -11,6 +11,7 @@
 		800872A5277A7E0200709387 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A4277A7E0200709387 /* SettingsViewController.swift */; };
 		800872A8277B4A1C00709387 /* SpotifyOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A7277B4A1C00709387 /* SpotifyOSX.swift */; };
 		800872AA277B9C0D00709387 /* ClickableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A9277B9C0D00709387 /* ClickableTextField.swift */; };
+		800872AD277BCA5400709387 /* scraper.py in Resources */ = {isa = PBXBuildFile; fileRef = 800872AC277BCA5400709387 /* scraper.py */; };
 		80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949252275EA0C1000EE149 /* AppDelegate.swift */; };
 		80949255275EA0C1000EE149 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949254275EA0C1000EE149 /* MainViewController.swift */; };
 		80949257275EA0C3000EE149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80949256275EA0C3000EE149 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		800872A4277A7E0200709387 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		800872A7277B4A1C00709387 /* SpotifyOSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyOSX.swift; sourceTree = "<group>"; };
 		800872A9277B9C0D00709387 /* ClickableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickableTextField.swift; sourceTree = "<group>"; };
+		800872AC277BCA5400709387 /* scraper.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = scraper.py; sourceTree = "<group>"; };
 		8094924F275EA0C1000EE149 /* bezola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bezola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80949252275EA0C1000EE149 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80949254275EA0C1000EE149 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 			path = MusicUtils;
 			sourceTree = "<group>";
 		};
+		800872AB277BCA0600709387 /* Python */ = {
+			isa = PBXGroup;
+			children = (
+				800872AC277BCA5400709387 /* scraper.py */,
+			);
+			path = Python;
+			sourceTree = "<group>";
+		};
 		80949246275EA0C1000EE149 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 				80949277275FADB4000EE149 /* Views */,
 				80949261275EA112000EE149 /* Utils */,
 				800872A6277B2D0E00709387 /* MusicUtils */,
+				800872AB277BCA0600709387 /* Python */,
 				80949252275EA0C1000EE149 /* AppDelegate.swift */,
 				8094925B275EA0C3000EE149 /* bezola.entitlements */,
 				80949256275EA0C3000EE149 /* Assets.xcassets */,
@@ -222,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				800872AD277BCA5400709387 /* scraper.py in Resources */,
 				80949257275EA0C3000EE149 /* Assets.xcassets in Resources */,
 				8094927F2760C9DC000EE149 /* SongTableCell.xib in Resources */,
 				8094925A275EA0C3000EE149 /* Main.storyboard in Resources */,
