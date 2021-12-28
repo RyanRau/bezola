@@ -90,9 +90,12 @@ extension Spotify {
     }
     
     func getCurrentDevice(completion: @escaping (Device?) -> ()) {
-        guard self.isAuthorized else { return }
-        
         DispatchQueue.main.async() {
+            guard self.isAuthorized else {
+                completion(nil)
+                return
+            }
+            
             self.api.availableDevices().sink(
                 receiveCompletion: { completion in
                     if case .failure(let error) = completion {
@@ -112,9 +115,12 @@ extension Spotify {
     }
     
     func addTrackToQueue(track: Track, sucess: @escaping (Bool) -> ())  {
-        guard self.isAuthorized else { return }
-    
         DispatchQueue.main.async() {
+            guard self.isAuthorized else {
+                sucess(false)
+                return
+            }
+            
             self.api.addToQueue(track.uri! as SpotifyURIConvertible)
                 .sink(
                     receiveCompletion: { completion in
@@ -129,9 +135,12 @@ extension Spotify {
     }
     
     func getFirstTrackMatch(track: String, artist: String, completion: @escaping (Track?) -> ()) {
-        guard self.isAuthorized else { return }
-        
         DispatchQueue.main.async() {
+            guard self.isAuthorized else {
+                completion(nil)
+                return
+            }
+            
             self.api.search(
                 query: "track:\(track) artist:\(artist)",
                 categories: [.track],
@@ -157,43 +166,30 @@ extension Spotify {
             ).store(in: &self.cancellables)
         }
     }
-    
-    func searchTrack(_ track: String, _ artist: String){
-        guard self.isAuthorized else { return }
-    }
-    
-    func getTrack() {
-        guard self.isAuthorized else { return }
+
+    func completeWhoSampledData(data: WhoSampledData, completion: @escaping (WhoSampledData) -> ()) {
+        var completeData = data
+        let g = DispatchGroup()
         
-        self.api.search(
-            query: "Tcheguedie Ao Cubo",
-            categories: [.track, .artist],
-            market: "US"
-        )
-        .sink(
-            receiveCompletion: { completion in
-                print("completion:", completion, terminator: "\n\n\n")
-            },
-            receiveValue: { results in
-                print("\nReceived results for search for 'The Beatles'")
-                let tracks = results.tracks?.items ?? []
-                print("found \(tracks.count) tracks:")
-                print("------------------------")
-                for track in tracks {
-                    print(track)
-//                    print("\(track.name) - \(track.album?.name ?? "nil")")
-                }
-                
-                let albums = results.albums?.items ?? []
-                print("\nfound \(albums.count) albums:")
-                print("------------------------")
-                for album in albums {
-                    print("\(album.name)")
-                }
-                
+        for i in data.samples.indices {
+            g.enter()
+            self.getFirstTrackMatch(track: data.samples[i].track, artist: data.samples[i].artist) { result in
+                completeData.samples[i].spotifyTrack = result
+                g.leave()
             }
-        )
-        .store(in: &cancellables)
+        }
+        
+        for i in data.sampled_by.indices {
+            g.enter()
+            self.getFirstTrackMatch(track: data.sampled_by[i].track, artist: data.sampled_by[i].artist) { result in
+                completeData.sampled_by[i].spotifyTrack = result
+                g.leave()
+            }
+        }
+        
+        g.notify(queue: .main) {
+            completion(completeData)
+        }
     }
 }
 

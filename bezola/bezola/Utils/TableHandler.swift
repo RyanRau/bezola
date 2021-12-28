@@ -40,6 +40,8 @@ extension TableHandler: NSTableViewDelegate {
         view.track.stringValue = sample.track
         view.artist.stringValue = sample.artist
         view.year.stringValue = sample.year
+        
+        view.spotifyTrackUri = sample.spotifyTrack?.uri ?? nil
         view.onAddToQueue = {
             if let onAddToQueue = self.onAddToQueue {
                 onAddToQueue(self.data[row])
@@ -47,6 +49,7 @@ extension TableHandler: NSTableViewDelegate {
         }
         
         view.loadImage(url: sample.albumURL)
+        view.configureSpotifyElements()
         
         return view
     }

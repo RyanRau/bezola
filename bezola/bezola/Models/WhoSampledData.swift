@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SampleData: Decodable {
+struct WhoSampledData: Decodable {
     var samples: [Song]
     var sampled_by: [Song]
     

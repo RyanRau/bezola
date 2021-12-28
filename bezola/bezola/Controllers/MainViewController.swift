@@ -20,7 +20,7 @@ class MainViewController: NSViewController {
     @IBOutlet weak var sampledByTableView: NSTableView!
     
     var current: Song = Song()
-    var sampleData: SampleData = SampleData()
+    var whoSampledData: WhoSampledData = WhoSampledData()
     
     var sampleHandler: TableHandler = TableHandler()
     var sampledByHandler: TableHandler = TableHandler()
@@ -100,11 +100,11 @@ extension MainViewController {
         sampleHandler.onAddToQueue = { self.addToQueue($0) }
         sampledByHandler.onAddToQueue = { self.addToQueue($0) }
         
-        self.sampleHandler.updateData(self.sampleData.samples)
+        self.sampleHandler.updateData(self.whoSampledData.samples)
         sampleTableView.delegate = self.sampleHandler
         sampleTableView.dataSource = self.sampleHandler
         
-        self.sampledByHandler.updateData(self.sampleData.samples)
+        self.sampledByHandler.updateData(self.whoSampledData.samples)
         sampledByTableView.delegate = self.sampledByHandler
         sampledByTableView.dataSource = self.sampledByHandler
     }
@@ -132,14 +132,16 @@ extension MainViewController {
     }
     
     func getAndSetWhoSampledData() {
-        WhoSampled.getSampleData(self.current.track, self.current.artist) { sampleData in
-            self.sampleData = sampleData
+        WhoSampled.getSampleData(self.current.track, self.current.artist) { data in
+            self.spotify.completeWhoSampledData(data: data) { completeData in
+                self.whoSampledData = completeData
 
-            self.sampleHandler.updateData(self.sampleData.samples)
-            self.sampledByHandler.updateData(self.sampleData.sampled_by)
-            
-            self.sampleTableView.reloadData()
-            self.sampledByTableView.reloadData()
+                self.sampleHandler.updateData(self.whoSampledData.samples)
+                self.sampledByHandler.updateData(self.whoSampledData.sampled_by)
+                
+                self.sampleTableView.reloadData()
+                self.sampledByTableView.reloadData()
+            }
         }
     }
     

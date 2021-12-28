@@ -7,8 +7,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SongTableCell" customModule="bezola" customModuleProvider="target">
             <connections>
+                <outlet property="addToQueueButton" destination="AMl-gL-cFp" id="CzA-fN-FpK"/>
                 <outlet property="albumArt" destination="xQ2-4w-rOr" id="8L8-do-pA4"/>
                 <outlet property="artist" destination="f68-lN-6Aj" id="kXQ-LE-AgA"/>
+                <outlet property="playButton" destination="xy4-qE-Cqj" id="7KC-hO-aOt"/>
                 <outlet property="track" destination="oxQ-1v-wmS" id="CaB-Vn-YWU"/>
                 <outlet property="year" destination="9zL-2c-nhd" id="07W-Tr-IV8"/>
             </connections>
@@ -24,7 +26,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="proportionallyDown" id="3Ig-T2-gvI"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxQ-1v-wmS">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxQ-1v-wmS" customClass="ClickableTextField" customModule="bezola" customModuleProvider="target">
                     <rect key="frame" x="101" y="58" width="279" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Track" id="FAD-6V-jwy">
@@ -51,7 +53,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMl-gL-cFp">
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMl-gL-cFp">
                     <rect key="frame" x="272" y="16.5" width="31.5" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lvB-Mp-rKs">
@@ -62,11 +64,23 @@
                         <action selector="addToQueue:" target="-2" id="ho9-Wc-8Iv"/>
                     </connections>
                 </button>
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xy4-qE-Cqj">
+                    <rect key="frame" x="28" y="24" width="48.5" height="52"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="R4m-A2-1KQ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playTrack:" target="-2" id="TCw-wh-RLF"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="288" y="118"/>
         </customView>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="play" catalog="system" width="12" height="13"/>
     </resources>
 </document>

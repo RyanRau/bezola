@@ -6,7 +6,7 @@
 //  With inspiration from https://github.com/laaksomavrick/menu-bar-for-spotify
 //
 
-import Foundation
+import Cocoa
 
 // Interaction with the system's instance of Spotify rather than the API
 class SpotifyOSX {
@@ -51,7 +51,7 @@ class SpotifyOSX {
         
         var error: NSDictionary?
         if let scriptObject = NSAppleScript(source: AppleScripts.togglePlayerState) {
-            let output = scriptObject.executeAndReturnError(&error)
+            scriptObject.executeAndReturnError(&error)
             
             if error != nil {
                 print("APPLE SCRIPT ERROR: \(error as Any)")
@@ -78,8 +78,11 @@ class SpotifyOSX {
         return Song()
     }
     
-    static func playTrack(_ uri: String) -> Bool {
-        guard isRunning() == true else { return false }
+    static func playTrack(_ uri: String) {
+        guard isRunning() == true else {
+            print("Spotify is not runinng")
+            return
+        }
         
         let script = """
             tell application "Spotify"
@@ -93,12 +96,12 @@ class SpotifyOSX {
             
             if error != nil {
                 print("APPLE SCRIPT ERROR: \(error as Any)")
-                return false
+                return
             }
-            
-            return true
         }
-        
-        return false
+    }
+    
+    static func openSpotifyTrack(uri: String) {
+        NSWorkspace.shared.open(URL(string: uri)!)
     }
 }

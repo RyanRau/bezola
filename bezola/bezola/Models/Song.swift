@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SpotifyWebAPI
 
 struct Song {
     public let track: String
@@ -13,6 +14,8 @@ struct Song {
     
     public let albumURL: String
     public let year: String
+    
+    public var spotifyTrack: Track? = nil
     
     init(_ input: String) {
         let split = input.split(separator: "%").map(String.init)
@@ -30,19 +33,6 @@ struct Song {
         
         self.albumURL = "N/A"
         self.year = "N/A"
-    }
-    
-    
-    func getTrack() -> String {
-        return self.track
-    }
-    
-    func getArtist() -> String {
-        return self.artist
-    }
-    
-    func getYear() -> String {
-        return self.year
     }
 }
 

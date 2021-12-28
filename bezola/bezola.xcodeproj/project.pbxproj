@@ -10,6 +10,7 @@
 		8008729F2779D9EF00709387 /* AppleScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008729E2779D9EF00709387 /* AppleScripts.swift */; };
 		800872A5277A7E0200709387 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A4277A7E0200709387 /* SettingsViewController.swift */; };
 		800872A8277B4A1C00709387 /* SpotifyOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A7277B4A1C00709387 /* SpotifyOSX.swift */; };
+		800872AA277B9C0D00709387 /* ClickableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800872A9277B9C0D00709387 /* ClickableTextField.swift */; };
 		80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949252275EA0C1000EE149 /* AppDelegate.swift */; };
 		80949255275EA0C1000EE149 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949254275EA0C1000EE149 /* MainViewController.swift */; };
 		80949257275EA0C3000EE149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80949256275EA0C3000EE149 /* Assets.xcassets */; };
@@ -18,7 +19,7 @@
 		80949268275EAE55000EE149 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949267275EAE55000EE149 /* Song.swift */; };
 		8094926B275EBB07000EE149 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8094926A275EBB07000EE149 /* PythonKit */; };
 		8094926D275F7213000EE149 /* WhoSampled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094926C275F7213000EE149 /* WhoSampled.swift */; };
-		8094926F275F7270000EE149 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094926E275F7270000EE149 /* SampleData.swift */; };
+		8094926F275F7270000EE149 /* WhoSampledData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094926E275F7270000EE149 /* WhoSampledData.swift */; };
 		80949273275F7F61000EE149 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949272275F7F61000EE149 /* EventMonitor.swift */; };
 		80949276275F84D4000EE149 /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949275275F84D4000EE149 /* PopoverController.swift */; };
 		80949279275FB4C1000EE149 /* TableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80949278275FB4C1000EE149 /* TableHandler.swift */; };
@@ -34,6 +35,7 @@
 		8008729E2779D9EF00709387 /* AppleScripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScripts.swift; sourceTree = "<group>"; };
 		800872A4277A7E0200709387 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		800872A7277B4A1C00709387 /* SpotifyOSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyOSX.swift; sourceTree = "<group>"; };
+		800872A9277B9C0D00709387 /* ClickableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickableTextField.swift; sourceTree = "<group>"; };
 		8094924F275EA0C1000EE149 /* bezola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bezola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80949252275EA0C1000EE149 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80949254275EA0C1000EE149 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +45,7 @@
 		80949262275EA13C000EE149 /* Spotify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spotify.swift; sourceTree = "<group>"; };
 		80949267275EAE55000EE149 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		8094926C275F7213000EE149 /* WhoSampled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoSampled.swift; sourceTree = "<group>"; };
-		8094926E275F7270000EE149 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		8094926E275F7270000EE149 /* WhoSampledData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoSampledData.swift; sourceTree = "<group>"; };
 		80949272275F7F61000EE149 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		80949275275F84D4000EE149 /* PopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		80949278275FB4C1000EE149 /* TableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHandler.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				80949278275FB4C1000EE149 /* TableHandler.swift */,
 				8094927A27601ED5000EE149 /* Helpers.swift */,
 				8008729E2779D9EF00709387 /* AppleScripts.swift */,
+				800872A9277B9C0D00709387 /* ClickableTextField.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -126,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				80949267275EAE55000EE149 /* Song.swift */,
-				8094926E275F7270000EE149 /* SampleData.swift */,
+				8094926E275F7270000EE149 /* WhoSampledData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,8 +239,9 @@
 				800872A8277B4A1C00709387 /* SpotifyOSX.swift in Sources */,
 				8094927D2760BE9C000EE149 /* SpotifyListener.swift in Sources */,
 				80949255275EA0C1000EE149 /* MainViewController.swift in Sources */,
-				8094926F275F7270000EE149 /* SampleData.swift in Sources */,
+				8094926F275F7270000EE149 /* WhoSampledData.swift in Sources */,
 				8094927B27601ED5000EE149 /* Helpers.swift in Sources */,
+				800872AA277B9C0D00709387 /* ClickableTextField.swift in Sources */,
 				8094926D275F7213000EE149 /* WhoSampled.swift in Sources */,
 				80949263275EA13C000EE149 /* Spotify.swift in Sources */,
 				80949253275EA0C1000EE149 /* AppDelegate.swift in Sources */,

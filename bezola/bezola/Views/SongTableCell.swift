@@ -10,11 +10,15 @@ import Cocoa
 
 class SongTableCell: NSView {
     
-    @IBOutlet weak var track: NSTextField!
+    @IBOutlet weak var track: ClickableTextField!
     @IBOutlet weak var artist: NSTextField!
     @IBOutlet weak var year: NSTextField!
     @IBOutlet weak var albumArt: NSImageView!
     
+    @IBOutlet weak var addToQueueButton: NSButton!
+    @IBOutlet weak var playButton: NSButton!
+    
+    var spotifyTrackUri: String? = nil
     var mainView: NSView?
     
     var onAddToQueue : (() -> Void)? = nil
@@ -22,6 +26,7 @@ class SongTableCell: NSView {
     init() {
         super.init(frame: NSRect.zero)
         _ = load(fromNIBNamed: "SongTableCell")
+        super.layout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,6 +38,17 @@ class SongTableCell: NSView {
             guard let image = image else { return }
             self.albumArt.image = image
         }
+    }
+    
+    func configureSpotifyElements() {
+        if spotifyTrackUri == nil {
+            return
+        }
+    
+        albumArt.addTrackingArea(Helpers.createTrackingArea(control: albumArt))
+        track.onClickCallback = viewInSpotify
+        
+        addToQueueButton.isHidden = false
     }
     
     func load(fromNIBNamed nibName: String) -> Bool {
@@ -62,10 +78,56 @@ class SongTableCell: NSView {
         return false
     }
     
+    override func mouseEntered(with event: NSEvent) {
+        if let owner = event.trackingArea?.owner as? NSControl {
+            let id : String = owner.identifier!.rawValue
+
+            switch id {
+                case self.albumArt.identifier!.rawValue:
+                self.togglePlayButton(isActive: true)
+                default:
+                    return
+            }
+        }
+    }
+        
+    override func mouseExited(with event: NSEvent) {
+        if let owner = event.trackingArea?.owner as? NSControl {
+            let id : String = owner.identifier!.rawValue
+
+            switch id {
+                case self.albumArt.identifier!.rawValue:
+                self.togglePlayButton(isActive: false)
+                default:
+                    return
+            }
+        }
+    }
+    
+    func togglePlayButton(isActive: Bool) {
+        guard (spotifyTrackUri != nil) else { return }
+        
+        if !isActive {
+            playButton.isHidden = true
+            return
+        }
+        
+        playButton.isHidden = false
+    }
+    
     @IBAction func addToQueue(_ sender: Any) {
         if let onAddToQueue = self.onAddToQueue {
             onAddToQueue()
         }
     }
+    
+    @IBAction func playTrack(_ sender: Any) {
+        guard let uri = spotifyTrackUri else { return }
+        SpotifyOSX.playTrack(uri)
+    }
+    
+    func viewInSpotify() {
+        guard let uri = spotifyTrackUri else { return }
+        SpotifyOSX.openSpotifyTrack(uri: uri)
+    }
 }
-
