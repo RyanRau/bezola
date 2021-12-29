@@ -18,10 +18,12 @@ class SongTableCell: NSView {
     @IBOutlet weak var addToQueueButton: NSButton!
     @IBOutlet weak var playButton: NSButton!
     
+    @IBOutlet weak var queueStatus: NSImageView!
+    
     var spotifyTrackUri: String? = nil
     var mainView: NSView?
     
-    var onAddToQueue : (() -> Void)? = nil
+    var onAddToQueue : (() -> ())? = nil
     
     init() {
         super.init(frame: NSRect.zero)
@@ -66,10 +68,7 @@ class SongTableCell: NSView {
                 self.addSubview(mainView!)
                 
                 mainView?.translatesAutoresizingMaskIntoConstraints = false
-//                mainView?.widthAnchor.constraint(equalToConstant: 385).isActive = true
-//                mainView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                
-//
+
                 mainView?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
                 mainView?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
                 mainView?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -88,7 +87,7 @@ class SongTableCell: NSView {
 
             switch id {
                 case self.albumArt.identifier!.rawValue:
-                self.togglePlayButton(isActive: true)
+                    self.togglePlayButton(isActive: true)
                 default:
                     return
             }
@@ -101,7 +100,7 @@ class SongTableCell: NSView {
 
             switch id {
                 case self.albumArt.identifier!.rawValue:
-                self.togglePlayButton(isActive: false)
+                    self.togglePlayButton(isActive: false)
                 default:
                     return
             }
@@ -111,6 +110,7 @@ class SongTableCell: NSView {
 
     @IBAction func addToQueue(_ sender: Any) {
         if let onAddToQueue = self.onAddToQueue {
+            addToQueueButton.isEnabled = false
             onAddToQueue()
         }
     }
@@ -120,7 +120,14 @@ class SongTableCell: NSView {
         SpotifyOSX.playTrack(uri)
     }
     
-
+    func afterAddToQueue(sucess: Bool) {
+        DispatchQueue.main.async { // Throws errors if not on main thread
+            self.queueStatus.isHidden = false
+            self.queueStatus.contentTintColor = (sucess ? NSColor.systemGreen : NSColor.systemRed)
+            self.queueStatus.toolTip = (sucess ? "Sucessfully added to queue" : "Error adding to queue")
+        }
+    }
+    
     func togglePlayButton(isActive: Bool) {
         guard (spotifyTrackUri != nil) else { return }
         

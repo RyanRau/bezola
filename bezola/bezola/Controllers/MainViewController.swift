@@ -97,8 +97,8 @@ extension MainViewController {
         sampleTableView.headerView = nil
         sampledByTableView.headerView = nil
         
-        sampleHandler.onAddToQueue = { self.addToQueue($0) }
-        sampledByHandler.onAddToQueue = { self.addToQueue($0) }
+        sampleHandler.onAddToQueue = { self.addToQueue($0, completion: $1) }
+        sampledByHandler.onAddToQueue = { self.addToQueue($0, completion: $1) }
         
         self.sampleHandler.updateData(self.whoSampledData.samples)
         sampleTableView.delegate = self.sampleHandler
@@ -109,7 +109,6 @@ extension MainViewController {
         sampledByTableView.dataSource = self.sampledByHandler
     }
 
-    
     func getAndSetData(){
         self.isPlaying = SpotifyOSX.getPlaybackState()
         playbackStateButton.image = NSImage(
@@ -145,14 +144,14 @@ extension MainViewController {
         }
     }
     
-    func addToQueue(_ song: Song) {
+    func addToQueue(_ song: Song, completion: @escaping (Bool) -> ()) {
         spotify.getFirstTrackMatch(track: song.track, artist: song.artist) { result in
-            if result == nil {
-                print("failed to add")
+            guard let result = result else {
+                completion(false)
                 return
             }
-            self.spotify.addTrackToQueue(track: result!) { sucess in
-                print(sucess)
+            self.spotify.addTrackToQueue(track: result) { sucess in
+                completion(sucess)
             }
         }
     }

@@ -11,7 +11,7 @@ import Cocoa
 class TableHandler: NSObject {
     var data: [Song]
     
-    var onAddToQueue : ((Song) -> Void)? = nil
+    var onAddToQueue : ((Song, @escaping (Bool) -> ()) -> ())? = nil
     
     override init(){
         self.data = []
@@ -44,7 +44,9 @@ extension TableHandler: NSTableViewDelegate {
         view.spotifyTrackUri = sample.spotifyTrack?.uri ?? nil
         view.onAddToQueue = {
             if let onAddToQueue = self.onAddToQueue {
-                onAddToQueue(self.data[row])
+                onAddToQueue(self.data[row]) { result in
+                    view.afterAddToQueue(sucess: result)
+                }
             }
         }
         

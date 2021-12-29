@@ -11,6 +11,7 @@
                 <outlet property="albumArt" destination="xQ2-4w-rOr" id="8L8-do-pA4"/>
                 <outlet property="artist" destination="f68-lN-6Aj" id="kXQ-LE-AgA"/>
                 <outlet property="playButton" destination="xy4-qE-Cqj" id="7KC-hO-aOt"/>
+                <outlet property="queueStatus" destination="GxE-HX-Iy6" id="VvP-Gf-UWK"/>
                 <outlet property="track" destination="oxQ-1v-wmS" id="CaB-Vn-YWU"/>
                 <outlet property="year" destination="9zL-2c-nhd" id="07W-Tr-IV8"/>
             </connections>
@@ -21,6 +22,15 @@
             <rect key="frame" x="0.0" y="0.0" width="335" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GxE-HX-Iy6">
+                    <rect key="frame" x="287" y="50" width="20" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="9cd-g3-3Yn"/>
+                        <constraint firstAttribute="width" secondItem="GxE-HX-Iy6" secondAttribute="height" multiplier="1:1" id="q3K-vw-XmE"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="circle.fill" catalog="system" id="Hgj-aw-5v7"/>
+                    <color key="contentTintColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xQ2-4w-rOr">
                     <rect key="frame" x="10" y="7.5" width="80" height="85"/>
                     <constraints>
@@ -31,26 +41,41 @@
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9zL-2c-nhd">
                     <rect key="frame" x="98" y="35" width="28" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="4c3-ew-8Ey"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Year" id="otC-o3-Qzb">
                         <font key="font" metaFont="system" size="11"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f68-lN-6Aj">
-                    <rect key="frame" x="98" y="47" width="223" height="16"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f68-lN-6Aj">
+                    <rect key="frame" x="98" y="50" width="192" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="vmm-ZH-KV5"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Artist" id="4cb-tj-PQf">
                         <font key="font" metaFont="system" size="12"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button hidden="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMl-gL-cFp">
-                    <rect key="frame" x="281" y="36.5" width="32.5" height="32"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oxQ-1v-wmS" customClass="ClickableTextField" customModule="bezola" customModuleProvider="target">
+                    <rect key="frame" x="98" y="67" width="192" height="21"/>
+                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" title="Track" id="FAD-6V-jwy">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMl-gL-cFp">
+                    <rect key="frame" x="285" y="33" width="40" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="32" id="3Gu-ue-sQ0"/>
+                        <constraint firstAttribute="width" constant="40" id="3Gu-ue-sQ0"/>
+                        <constraint firstAttribute="width" secondItem="AMl-gL-cFp" secondAttribute="height" multiplier="1:1" id="yyX-Fc-3cn"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lvB-Mp-rKs">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="text.badge.plus" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lvB-Mp-rKs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -58,8 +83,8 @@
                         <action selector="addToQueue:" target="-2" id="ho9-Wc-8Iv"/>
                     </connections>
                 </button>
-                <button hidden="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xy4-qE-Cqj">
-                    <rect key="frame" x="28" y="24" width="49" height="52"/>
+                <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xy4-qE-Cqj">
+                    <rect key="frame" x="26" y="24" width="48.5" height="52"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="xy4-qE-Cqj" secondAttribute="height" multiplier="1:1" id="cbh-vB-V6s"/>
                         <constraint firstAttribute="width" constant="48" id="ymA-rw-cni"/>
@@ -72,14 +97,6 @@
                         <action selector="playTrack:" target="-2" id="TCw-wh-RLF"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxQ-1v-wmS" customClass="ClickableTextField" customModule="bezola" customModuleProvider="target">
-                    <rect key="frame" x="98" y="64" width="223" height="24"/>
-                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" title="Track" id="FAD-6V-jwy">
-                        <font key="font" metaFont="system" size="18"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="oxQ-1v-wmS" firstAttribute="leading" secondItem="xQ2-4w-rOr" secondAttribute="trailing" constant="10" id="97U-QQ-ARA"/>
@@ -88,8 +105,9 @@
                 <constraint firstItem="xy4-qE-Cqj" firstAttribute="centerY" secondItem="xQ2-4w-rOr" secondAttribute="centerY" id="GcC-nL-h7c"/>
                 <constraint firstItem="xy4-qE-Cqj" firstAttribute="centerX" secondItem="xQ2-4w-rOr" secondAttribute="centerX" id="HqQ-XE-wOO"/>
                 <constraint firstItem="xQ2-4w-rOr" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="IyY-lX-iK8"/>
+                <constraint firstItem="GxE-HX-Iy6" firstAttribute="leading" secondItem="AMl-gL-cFp" secondAttribute="leading" constant="2" id="J5E-z5-qBf"/>
+                <constraint firstItem="GxE-HX-Iy6" firstAttribute="top" secondItem="AMl-gL-cFp" secondAttribute="top" constant="2" id="Jh1-oF-a42"/>
                 <constraint firstItem="9zL-2c-nhd" firstAttribute="leading" secondItem="xQ2-4w-rOr" secondAttribute="trailing" constant="10" id="KHp-zR-Htx"/>
-                <constraint firstItem="AMl-gL-cFp" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="U2z-ve-5Qv"/>
                 <constraint firstItem="xQ2-4w-rOr" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="VRy-fL-Eqa"/>
                 <constraint firstAttribute="trailing" secondItem="f68-lN-6Aj" secondAttribute="trailing" constant="47" id="d5u-Z3-fI3"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9zL-2c-nhd" secondAttribute="bottom" constant="12" id="f5b-95-cvl"/>
@@ -97,13 +115,15 @@
                 <constraint firstItem="f68-lN-6Aj" firstAttribute="top" secondItem="oxQ-1v-wmS" secondAttribute="bottom" constant="2" id="kLI-Ja-aoa"/>
                 <constraint firstItem="oxQ-1v-wmS" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="pUC-eA-J4G"/>
                 <constraint firstItem="9zL-2c-nhd" firstAttribute="top" secondItem="f68-lN-6Aj" secondAttribute="bottom" constant="1" id="tEb-BB-k89"/>
+                <constraint firstItem="AMl-gL-cFp" firstAttribute="centerY" secondItem="xQ2-4w-rOr" secondAttribute="centerY" constant="-5" id="uCh-lL-xvL"/>
             </constraints>
-            <point key="canvasLocation" x="288" y="118"/>
+            <point key="canvasLocation" x="287.5" y="118"/>
         </customView>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="circle.fill" catalog="system" width="15" height="15"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="questionmark.app" catalog="system" width="15" height="14"/>
+        <image name="text.badge.plus" catalog="system" width="16" height="14"/>
     </resources>
 </document>

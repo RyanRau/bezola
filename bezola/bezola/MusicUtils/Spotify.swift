@@ -31,7 +31,7 @@ final class Spotify: ObservableObject {
     @Published var isAuthorized = false
     @Published var currentUser: SpotifyUser? = nil
     
-    init(isPlaceholder: Bool = false){
+    init(isPlaceholder: Bool = false) {
         if isPlaceholder { // Allows for MainViewController to init with non nil Spotify Class
             self.isPlaceholder = isPlaceholder
             return
@@ -114,7 +114,7 @@ extension Spotify {
         }
     }
     
-    func addTrackToQueue(track: Track, sucess: @escaping (Bool) -> ())  {
+    func addTrackToQueue(track: Track, sucess: @escaping (Bool) -> ()) {
         DispatchQueue.main.async() {
             guard self.isAuthorized else {
                 sucess(false)
@@ -195,7 +195,7 @@ extension Spotify {
 
 // SpotifyAPI Authorization
 extension Spotify {
-    func authorize(){
+    func authorize() {
         let authorizationURL = api.authorizationManager.makeAuthorizationURL(
            redirectURI: loginCallbackURL,
            showDialog: false,
@@ -210,7 +210,7 @@ extension Spotify {
        NSWorkspace.shared.open(authorizationURL)
     }
     
-    func authorizationManagerDidChange(){
+    func authorizationManagerDidChange() {
         self.isAuthorized = self.api.authorizationManager.isAuthorized()
         self.retrieveCurrentUser()
         
@@ -240,7 +240,7 @@ extension Spotify {
         print("Spotify Deauthorized")
     }
     
-    func onCallBack(_ url: URL){
+    func onCallBack(_ url: URL) {
         api.authorizationManager.requestAccessAndRefreshTokens(
             redirectURIWithQuery: url
         )
