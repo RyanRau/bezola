@@ -25,9 +25,9 @@ class SongTableCell: NSView {
     
     var onAddToQueue : (() -> ())? = nil
     
-    init() {
+    init(isEmpty: Bool = false) {
         super.init(frame: NSRect.zero)
-        _ = load(fromNIBNamed: "SongTableCell")
+        _ = load(fromNIBNamed: "SongTableCell", isEmpty: isEmpty)
         super.layout()
     }
     
@@ -53,29 +53,32 @@ class SongTableCell: NSView {
         addToQueueButton.isHidden = false
     }
     
-    func load(fromNIBNamed nibName: String) -> Bool {
+    func load(fromNIBNamed nibName: String, isEmpty: Bool) -> Bool {
         var nibObjects: NSArray?
         let nibName = NSNib.Name(stringLiteral: nibName)
+        
+        let cellName = (isEmpty ? "EmptyCell" : "SongCell")
         
         if Bundle.main.loadNibNamed(nibName, owner: self, topLevelObjects: &nibObjects) {
             guard let nibObjects = nibObjects else { return false }
             
-            let viewObjects = nibObjects.filter { $0 is NSView }
+            guard let view = nibObjects.first(where: { obj in
+                guard let obj = obj as? NSView else { return false }
+                return (obj.identifier?.rawValue ?? "") == cellName
+            }) as? NSView else { return false }
             
-            if viewObjects.count > 0 {
-                guard let view = viewObjects[0] as? NSView else { return false }
-                mainView = view
-                self.addSubview(mainView!)
-                
-                mainView?.translatesAutoresizingMaskIntoConstraints = false
+            mainView = view
+            self.addSubview(mainView!)
+            
+            mainView?.translatesAutoresizingMaskIntoConstraints = false
 
-                mainView?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-                mainView?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-                mainView?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-                mainView?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-                
-                return true
-            }
+            mainView?.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            mainView?.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            mainView?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            mainView?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+            
+            return true
+            
         }
         
         return false
@@ -125,6 +128,11 @@ class SongTableCell: NSView {
             self.queueStatus.isHidden = false
             self.queueStatus.contentTintColor = (sucess ? NSColor.systemGreen : NSColor.systemRed)
             self.queueStatus.toolTip = (sucess ? "Sucessfully added to queue" : "Error adding to queue")
+            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                self.queueStatus.isHidden = true
+//                self.addToQueueButton.isEnabled = true
+//            }
         }
     }
     

@@ -35,8 +35,13 @@ extension TableHandler: NSTableViewDataSource {
 extension TableHandler: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let sample = data[row]
+    
+        let view = SongTableCell(isEmpty: sample.isPlaceholder)
         
-        let view = SongTableCell()
+        if sample.isPlaceholder {
+            return view
+        }
+            
         view.track.stringValue = sample.track
         view.artist.stringValue = sample.artist
         view.year.stringValue = sample.year

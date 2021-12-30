@@ -16,6 +16,7 @@ class MainViewController: NSViewController {
     @IBOutlet weak var settingsButton: NSButton!
     @IBOutlet weak var playbackStateButton: NSButton!
     
+    @IBOutlet weak var whoSampledTabView: NSTabView!
     @IBOutlet weak var sampleTableView: NSTableView!
     @IBOutlet weak var sampledByTableView: NSTableView!
     
@@ -135,13 +136,28 @@ extension MainViewController {
             self.spotify.completeWhoSampledData(data: data) { completeData in
                 self.whoSampledData = completeData
 
-                self.sampleHandler.updateData(self.whoSampledData.samples)
-                self.sampledByHandler.updateData(self.whoSampledData.sampled_by)
-                
-                self.sampleTableView.reloadData()
-                self.sampledByTableView.reloadData()
+                self.updateTables(data: completeData)
             }
         }
+    }
+    
+    func updateTables(data: WhoSampledData) {
+        var data = data
+        
+        if data.samples.isEmpty {
+            data.samples.append(Song(isPlaceholder: true))
+        }
+        if data.sampled_by.isEmpty {
+            data.sampled_by.append(Song(isPlaceholder: true))
+        }
+        
+        self.sampleHandler.updateData(data.samples)
+        self.sampledByHandler.updateData(data.sampled_by)
+        
+        self.sampledByTableView.reloadData()
+        self.sampleTableView.reloadData()
+
+        
     }
     
     func addToQueue(_ song: Song, completion: @escaping (Bool) -> ()) {
