@@ -15,3 +15,8 @@ Data is scraped from WhoSampled
 
 ### Running
 Xcode uses the system's instance of python when executing the WhoSampled scraper, therefore make sure the required libraries are installed. The necessary libraries can be found in [requirements.txt](misc/requirements.txt)
+
+
+
+
+*This project is named after the extinct fish species [Coregonus Bezola](https://en.wikipedia.org/wiki/Coregonus_bezola)*
