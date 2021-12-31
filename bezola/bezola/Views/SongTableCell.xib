@@ -126,7 +126,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-M5-TTs">
                     <rect key="frame" x="101" y="42" width="133" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="No songs were found" id="OML-lS-FRw">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="No songs were found" id="OML-lS-FRw">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

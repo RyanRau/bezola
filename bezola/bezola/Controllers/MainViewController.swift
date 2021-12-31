@@ -122,7 +122,7 @@ extension MainViewController {
         trackTitle.stringValue = current.track
         artistTitle.stringValue = current.artist
         
-        fetchImage { error, image in
+        Helpers.fetchImage(url: current.albumURL) { error, image in
             guard let image = image else { return }
 
             self.albumArt.image = image
@@ -179,18 +179,6 @@ extension MainViewController {
         }
         
         playbackStateButton.isHidden = false
-    }
-    
-    func fetchImage(completion: @escaping (Bool, NSImage?) -> ()) {
-        Helpers.get(url: current.albumURL)  { data, response, error in
-            DispatchQueue.main.async() {
-                guard let data = data, error == nil else {
-                    completion(true, nil)
-                    return
-                }
-                completion(false, NSImage(data: data))
-            }
-        }
     }
 }
 

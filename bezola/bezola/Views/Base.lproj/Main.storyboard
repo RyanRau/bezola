@@ -895,46 +895,24 @@
             </objects>
             <point key="canvasLocation" x="72.5" y="447.5"/>
         </scene>
-        <!--Window Controller-->
-        <scene sceneID="Lvr-Pc-Sy0">
-            <objects>
-                <windowController id="Mf0-CB-Vgf" sceneMemberID="viewController">
-                    <window key="window" title="Bezola - Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="VRG-Eh-Okn">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="294" y="363" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
-                        <view key="contentView" id="Shj-mi-XBs">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </view>
-                        <connections>
-                            <outlet property="delegate" destination="Mf0-CB-Vgf" id="gc6-b3-uST"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="cwv-LB-yZM" kind="relationship" relationship="window.shadowedContentViewController" id="Akh-c2-aAI"/>
-                    </connections>
-                </windowController>
-                <customObject id="Mki-On-tna" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="645" y="154"/>
-        </scene>
         <!--Settings View Controller-->
         <scene sceneID="m5B-Zc-LW3">
             <objects>
                 <viewController id="cwv-LB-yZM" customClass="SettingsViewController" customModule="bezola" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" identifier="Settings" id="H1p-fQ-K8H">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="140"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMn-bS-CGv">
-                                <rect key="frame" x="42" y="120" width="106" height="106"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Rvq-MC-ZdL"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMn-bS-CGv">
+                                <rect key="frame" x="20" y="17.5" width="100" height="105"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="JMn-bS-CGv" secondAttribute="height" multiplier="1:1" id="5jZ-SS-ITP"/>
+                                    <constraint firstAttribute="width" constant="100" id="I5e-GW-TXG"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="questionmark.app" catalog="system" id="Rvq-MC-ZdL"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-54-Ypg">
-                                <rect key="frame" x="166" y="180" width="148" height="16"/>
+                                <rect key="frame" x="142" y="77" width="148" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Not logged in to Spotify" id="OW9-K9-teB">
                                     <font key="font" metaFont="system"/>
@@ -943,7 +921,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PSV-DH-fC4">
-                                <rect key="frame" x="173" y="142" width="134" height="32"/>
+                                <rect key="frame" x="149" y="42" width="134" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Log in to Spotify" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2sJ-LF-1rt">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -957,17 +935,16 @@
                     </view>
                     <connections>
                         <outlet property="CurrentUserLabel" destination="N6E-54-Ypg" id="4eU-wj-Qh9"/>
+                        <outlet property="currentUserImage" destination="JMn-bS-CGv" id="tg3-si-1Om"/>
+                        <outlet property="currentUserLabel" destination="N6E-54-Ypg" id="97A-NI-JyL"/>
                         <outlet property="spotifyAuthButton" destination="PSV-DH-fC4" id="Yr8-Lz-DHK"/>
                     </connections>
                 </viewController>
                 <customObject id="9MV-bB-pn5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="645" y="642"/>
+            <point key="canvasLocation" x="542" y="202"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="6hR-Jf-Fch"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="16" height="9"/>
         <image name="play" catalog="system" width="12" height="13"/>

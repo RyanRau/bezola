@@ -12,6 +12,7 @@ import Combine
 class SettingsViewController: NSViewController {
     var spotify: Spotify = Spotify(isPlaceholder: true) // inits as placeholder class; avoids optional unwrapping
     
+    @IBOutlet weak var currentUserImage: NSImageView!
     @IBOutlet weak var currentUserLabel: NSTextField!
     @IBOutlet weak var spotifyAuthButton: NSButton!
     
@@ -22,10 +23,14 @@ class SettingsViewController: NSViewController {
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
                 
+        self.view.window?.title = "Settings"
+        
         self.setSpotifyLabels(self.spotify.isAuthorized)
+        self.setSpotifyProfileImage(self.spotify.isAuthorized)
         spotify.$isAuthorized.sink {
             if $0 != self.spotify.isAuthorized {
                 self.setSpotifyLabels($0)
+                self.setSpotifyProfileImage($0)
             }
         }.store(in: &cancellables)
         
@@ -58,7 +63,29 @@ extension SettingsViewController {
             spotifyAuthButton.title = "Log in to Spotify"
         }
     }
+    
     private func setCurrentUserLabel(_ displayName: String) {
         currentUserLabel.stringValue = "Logged in as: \(displayName)"
+    }
+    
+    func setSpotifyProfileImage(_ authStatus: Bool) {
+        if !authStatus {
+           return setDefaultImage()
+        }
+        
+        guard let imageURLString = self.spotify.currentUser?.images![0].url.absoluteString else { return setDefaultImage() }
+        
+        Helpers.fetchImage(url: imageURLString) { error, image in
+            guard let image = image else { return }
+
+            self.currentUserImage.image = image
+        }
+    }
+    
+    private func setDefaultImage() {
+        self.currentUserImage.image = NSImage(
+            systemSymbolName: "questionmark",
+            accessibilityDescription: nil
+        )
     }
 }
