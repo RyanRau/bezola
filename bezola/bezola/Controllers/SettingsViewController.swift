@@ -22,8 +22,6 @@ class SettingsViewController: NSViewController {
         super.viewDidLoad()
         NSApp.setActivationPolicy(.regular)
         NSApp.activate(ignoringOtherApps: true)
-                
-        self.view.window?.title = "Settings"
         
         self.setSpotifyLabels(self.spotify.isAuthorized)
         self.setSpotifyProfileImage(self.spotify.isAuthorized)
@@ -37,6 +35,12 @@ class SettingsViewController: NSViewController {
         spotify.$currentUser.sink {
             self.setCurrentUserLabel($0?.displayName ?? "ERROR")
         }.store(in: &cancellables)
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        self.view.window?.title = "Settings"
     }
     
     override func viewDidDisappear() {
